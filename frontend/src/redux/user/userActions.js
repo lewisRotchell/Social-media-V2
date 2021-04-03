@@ -47,11 +47,7 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({
       type: USER_LOGIN_REQUEST,
     });
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
+    const config = {};
 
     const { data } = await axios.post(
       "api/auth/login",
@@ -68,7 +64,6 @@ export const login = (email, password) => async (dispatch) => {
     if (localStorage.token) {
       setAuthToken(localStorage.token);
     }
-    dispatch(getPosts());
 
     dispatch(loadUser());
   } catch (error) {
@@ -103,7 +98,6 @@ export const register = ({ username, email, password }) => async (dispatch) => {
     if (localStorage.token) {
       setAuthToken(localStorage.token);
     }
-    // dispatch(getPosts());
 
     dispatch(loadUser());
   } catch (error) {

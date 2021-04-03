@@ -6,6 +6,8 @@ import { css } from "@emotion/core";
 import PostList from "../../components/postList/PostList";
 import AddPostForm from "../../components/add-post-form/AddPostForm";
 
+import { getPosts } from "../../redux/post/postActions";
+
 const loaderCSS = css`
   position: absolute;
   left: 50%;
@@ -14,20 +16,32 @@ const loaderCSS = css`
 `;
 
 const Dashboard = () => {
-  const userLogin = useSelector((state) => state.userLogin);
+  const userInfo = useSelector((state) => state.userLogin.userInfo);
+  const userLoading = useSelector((state) => state.userLogin.loading);
+  const userError = useSelector((state) => state.userLogin.error);
 
-  const { userInfo, loading, error } = userLogin;
+  const posts = useSelector((state) => state.post.posts);
+  const postsLoading = useSelector((state) => state.post.loading);
+  const postsError = useSelector((state) => state.post.error);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (posts.length === 0) {
+      dispatch(getPosts());
+    }
+  }, [dispatch]);
 
   return (
     <>
-      {loading ? (
+      {userLoading || postsLoading ? (
         <BeatLoader loading css={loaderCSS} />
-      ) : error ? (
+      ) : userError || postsError ? (
         <h1>ERROR</h1>
       ) : (
         <Container maxWidth="sm">
           <AddPostForm userInfo={userInfo} />
-          <PostList />
+          <PostList posts={posts} loading={postsLoading} />
         </Container>
       )}
     </>

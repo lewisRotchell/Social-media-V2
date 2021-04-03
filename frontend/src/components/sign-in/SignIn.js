@@ -9,8 +9,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/user/userActions";
-import { getPosts } from "../../redux/post/postActions";
-import setAuthToken from "../../utils/setAuthToken";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignIn = ({ open, onOpen, history }) => {
+const SignIn = ({ handleToggle }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -89,8 +87,8 @@ const SignIn = ({ open, onOpen, history }) => {
             Sign In
           </Button>
 
-          <Button onClick={onOpen} variant="contained" fullWidth>
-            {"Create Account"}
+          <Button onClick={handleToggle} variant="contained" fullWidth>
+            Create Account
           </Button>
         </form>
       </div>

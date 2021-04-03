@@ -26,6 +26,7 @@ export const postReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         posts: payload,
+        error: false,
       };
 
     case GET_POSTS_FAIL:

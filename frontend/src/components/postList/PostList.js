@@ -1,25 +1,17 @@
 import React, { useEffect } from "react";
 import Post from "../post/Post";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts } from "../../redux/post/postActions";
 
-const PostList = () => {
-  const dispatch = useDispatch();
-  const { posts, loading } = useSelector((state) => state.post);
-  const { _id } = useSelector((state) => state.userLogin.userInfo);
+const PostList = ({ posts, loading }) => {
+  // const { posts, loading } = useSelector((state) => state.post);
+  // const { _id } = useSelector((state) => state.userLogin.userInfo);
 
-  useEffect(() => {
-    if (posts.length === 0) {
-      dispatch(getPosts());
-    }
-  }, [dispatch]);
+  console.log(loading);
 
-  return loading ? (
-    ""
-  ) : (
+  return (
     <div>
       {posts.map((post) => (
-        <Post key={post._id} post={post} userId={_id} />
+        <Post key={post._id} post={post} userId={post._id} />
       ))}
     </div>
   );
