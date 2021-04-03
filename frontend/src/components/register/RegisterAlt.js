@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { register } from "../../redux/user/userActions";
+import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
@@ -22,6 +24,25 @@ const useStyles = makeStyles({
 
 const RegisterAlt = ({ handleToggle }) => {
   const classes = useStyles();
+
+  const dispatch = useDispatch();
+
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const { username, email, password } = formData;
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(register(formData));
+  };
   return (
     <Container className={classes.container} maxWidth="xs">
       <Avatar className={classes.avatar} align="center">
@@ -30,7 +51,7 @@ const RegisterAlt = ({ handleToggle }) => {
       <Typography align="center" component="h2" variant="h5">
         Register
       </Typography>
-      <form>
+      <form onSubmit={handleSubmit}>
         <TextField
           autoFocus
           fullWidth
@@ -38,6 +59,9 @@ const RegisterAlt = ({ handleToggle }) => {
           variant="outlined"
           label="Username"
           margin="normal"
+          name="username"
+          value={username}
+          onChange={handleChange}
         >
           Username
         </TextField>
@@ -48,6 +72,9 @@ const RegisterAlt = ({ handleToggle }) => {
           required
           variant="outlined"
           label="Email"
+          name="email"
+          value={email}
+          onChange={handleChange}
         >
           Email
         </TextField>
@@ -59,6 +86,9 @@ const RegisterAlt = ({ handleToggle }) => {
           type="password"
           variant="outlined"
           label="Password"
+          name="password"
+          value={password}
+          onChange={handleChange}
         >
           Password
         </TextField>

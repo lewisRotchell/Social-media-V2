@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SignIn from "../../components/sign-in/SignIn";
 import { useSelector } from "react-redux";
-import RegisterAlt from "../../components/RegisterAlt";
+import RegisterAlt from "../../components/register/RegisterAlt";
 
 const LandingPage = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin);
