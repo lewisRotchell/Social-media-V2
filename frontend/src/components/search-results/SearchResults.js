@@ -11,8 +11,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     marginTop: "20px",
-    display: "flex",
-    alignItems: "center",
+    padding: ".5rem 1rem",
   },
 
   avatar: {
@@ -39,6 +38,10 @@ const useStyles = makeStyles((theme) => ({
       cursor: "pointer",
     },
   },
+  imgAndName: {
+    display: "flex",
+    alignItems: "center",
+  },
 }));
 
 const SearchResults = ({ username, photo, id }) => {
@@ -54,21 +57,22 @@ const SearchResults = ({ username, photo, id }) => {
   return (
     <Card className={classes.root}>
       {isFollowing() !== undefined && (
-        <div style={{ display: "flex", marginLeft: "8px" }}>
+        <div style={{ display: "flex", marginLeft: "4px" }}>
           <PersonIcon className={classes.iconStyle} color="primary" />
-          <Typography className={classes.following} color="primary">
+          <Typography variant="p" className={classes.following} color="primary">
             Following
           </Typography>
         </div>
       )}
+      <div className={classes.imgAndName}>
+        <Avatar aria-label="recipe" className={classes.avatar}>
+          {photo}
+        </Avatar>
 
-      <Avatar aria-label="recipe" className={classes.avatar}>
-        {photo}
-      </Avatar>
-
-      <Typography variant="h5" color="primary" className={classes.username}>
-        {username}
-      </Typography>
+        <Typography variant="h5" color="primary" className={classes.username}>
+          {username}
+        </Typography>
+      </div>
     </Card>
   );
 };
