@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import SignIn from "../../components/sign-in/SignIn";
 import { useSelector } from "react-redux";
-import RegisterAlt from "../../components/register/RegisterAlt";
+import Register from "../../components/register/Register";
 
 const LandingPage = ({ history }) => {
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo, isAuth } = userLogin;
+  const isAuth = useSelector((state) => state.userLogin.isAuth);
 
   const [toggle, setToggle] = useState(false);
 
@@ -22,9 +21,11 @@ const LandingPage = ({ history }) => {
   return (
     <div>
       {!toggle ? (
-        <SignIn handleToggle={handleToggle} />
+        <div>
+          <SignIn handleToggle={handleToggle} />
+        </div>
       ) : (
-        <RegisterAlt handleToggle={handleToggle} />
+        <Register handleToggle={handleToggle} />
       )}
     </div>
   );

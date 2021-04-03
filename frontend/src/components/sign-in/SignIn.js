@@ -1,97 +1,103 @@
 import React, { useState } from "react";
+import { login } from "../../redux/user/userActions";
+import { useDispatch } from "react-redux";
+import { makeStyles } from "@material-ui/core";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import TextField from "@material-ui/core/TextField";
+import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import { useDispatch } from "react-redux";
-import { login } from "../../redux/user/userActions";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
+const useStyles = makeStyles({
   avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    margin: "0 auto .5rem auto",
+    backgroundColor: "#f50057",
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    marginTop: "1rem",
   },
-}));
+  container: {
+    marginTop: "4rem",
+  },
+});
 
 const SignIn = ({ handleToggle }) => {
   const classes = useStyles();
+
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = formData;
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
   };
-
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form onSubmit={handleSubmit} className={classes.form} noValidate>
-          <TextField
-            onChange={(e) => setEmail(e.target.value)}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            onChange={(e) => setPassword(e.target.value)}
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
+    <Container className={classes.container} maxWidth="xs">
+      <Avatar className={classes.avatar} align="center">
+        <LockOutlinedIcon />
+      </Avatar>
+      <Typography align="center" component="h2" variant="h5">
+        Sign In
+      </Typography>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          margin="normal"
+          fullWidth
+          required
+          variant="outlined"
+          label="Email"
+          name="email"
+          value={email}
+          onChange={handleChange}
+          autoFocus
+        >
+          Email
+        </TextField>
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
-
-          <Button onClick={handleToggle} variant="contained" fullWidth>
-            Create Account
-          </Button>
-        </form>
-      </div>
+        <TextField
+          margin="normal"
+          fullWidth
+          required
+          type="password"
+          variant="outlined"
+          label="Password"
+          name="password"
+          value={password}
+          onChange={handleChange}
+        >
+          Password
+        </TextField>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+        >
+          Sign In
+        </Button>
+        <Button
+          onClick={handleToggle}
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="default"
+          className={classes.submit}
+        >
+          Create Account
+        </Button>
+      </form>
     </Container>
   );
 };
