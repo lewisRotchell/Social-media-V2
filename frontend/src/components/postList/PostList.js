@@ -1,9 +1,7 @@
 import React from "react";
 import Post from "../post/Post";
 
-const PostList = ({ posts, loading }) => {
-  console.log(loading);
-
+const PostList = ({ posts }) => {
   return (
     <div>
       {posts.map((post) => (

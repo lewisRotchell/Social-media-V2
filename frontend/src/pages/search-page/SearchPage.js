@@ -1,10 +1,19 @@
+import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import { BeatLoader } from "react-spinners";
+import { css } from "@emotion/core";
+import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import SearchResults from "../../components/search-results/SearchResults";
+
+const loaderCSS = css`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+`;
 
 const useStyles = makeStyles({
   root: {
@@ -43,7 +52,7 @@ const SearchPage = () => {
       </Button>
 
       {loading ? (
-        <p>loading</p>
+        <BeatLoader loading css={loaderCSS} />
       ) : !loading && users.length > 0 ? (
         users.map((user) => (
           <SearchResults

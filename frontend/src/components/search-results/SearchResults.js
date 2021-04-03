@@ -11,15 +11,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     marginTop: "20px",
-  },
-  media: {
-    height: 0,
-    paddingTop: "56.25%", // 16:9
+    display: "flex",
+    alignItems: "center",
   },
 
   avatar: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
+    width: "56px",
+    height: "56px",
   },
   numLikes: {
     fontSize: "16px",
@@ -27,15 +25,19 @@ const useStyles = makeStyles((theme) => ({
   likeButton: {
     padding: "0 16px 0 8px",
   },
-  cardHeader: {
-    padding: "4px 8px 8px 8px",
-  },
-  typographyStyle: {
+
+  following: {
     fontSize: "12px",
     fontWeight: "bold",
   },
   iconStyle: {
     fontSize: "16px",
+  },
+  username: {
+    marginLeft: "16px",
+    "&:hover": {
+      cursor: "pointer",
+    },
   },
 }));
 
@@ -54,21 +56,19 @@ const SearchResults = ({ username, photo, id }) => {
       {isFollowing() !== undefined && (
         <div style={{ display: "flex", marginLeft: "8px" }}>
           <PersonIcon className={classes.iconStyle} color="primary" />
-          <Typography className={classes.typographyStyle} color="primary">
+          <Typography className={classes.following} color="primary">
             Following
           </Typography>
         </div>
       )}
-      <CardHeader
-        titleTypographyProps={{ variant: "h6", color: "primary" }}
-        className={classes.cardHeader}
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {photo}
-          </Avatar>
-        }
-        title={username}
-      />
+
+      <Avatar aria-label="recipe" className={classes.avatar}>
+        {photo}
+      </Avatar>
+
+      <Typography variant="h5" color="primary" className={classes.username}>
+        {username}
+      </Typography>
     </Card>
   );
 };
