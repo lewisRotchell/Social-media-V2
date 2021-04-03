@@ -40,16 +40,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchResults = ({ username, photo, id }) => {
-  const following =
-    useSelector((state) => state.userLogin.userInfo?.following) || [];
-  console.log(following);
-  console.log(id);
+  const following = useSelector((state) => state.userLogin.userInfo?.following);
 
   const isFollowing = () => {
-    return following.find((i) => i === id);
+    if (following) {
+      return following.find((i) => i === id);
+    } else return;
   };
-
-  console.log(isFollowing());
 
   const classes = useStyles();
   return (

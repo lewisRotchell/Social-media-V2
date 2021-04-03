@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Post from "../post/Post";
-import { useDispatch, useSelector } from "react-redux";
 
 const PostList = ({ posts, loading }) => {
   console.log(loading);
