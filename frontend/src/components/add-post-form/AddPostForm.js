@@ -40,6 +40,7 @@ const AddPostForm = ({ userInfo }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     dispatch(addPost(text));
     setText("");
   };
@@ -80,7 +81,12 @@ const AddPostForm = ({ userInfo }) => {
           <Button size="small" color="primary">
             Following: {userInfo.following.length}
           </Button>
-          <Button onClick={handleSubmit} size="small" color="primary">
+          <Button
+            disabled={!text.match(/[0-9a-zA-Z]+$/)}
+            onClick={handleSubmit}
+            size="small"
+            color="primary"
+          >
             SEND
           </Button>
         </CardActions>

@@ -40,7 +40,8 @@ const useStyles = makeStyles(() => ({
   },
   postControls: {
     marginLeft: "80px", //This is for positioning
-    marginBottom: "10px",
+    // marginBottom: "10px",
+    padding: "8px 0 ",
   },
 }));
 const Post = ({ post }) => {
