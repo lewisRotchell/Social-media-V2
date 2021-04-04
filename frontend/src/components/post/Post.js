@@ -29,10 +29,8 @@ const useStyles = makeStyles(() => ({
   numLikes: {
     fontSize: "16px",
   },
-  likeButton: {
-    padding: "0",
-  },
-  deleteButton: {
+
+  buttonControls: {
     padding: "0",
   },
   text: {
@@ -90,7 +88,7 @@ const Post = ({ post }) => {
           <Grid item xs={4}>
             <IconButton
               size="small"
-              className={classes.likeButton}
+              className={classes.buttonControls}
               aria-label="add to favorites"
             >
               <FavoriteBorderIcon fontSize="small" />
@@ -100,8 +98,7 @@ const Post = ({ post }) => {
           <Grid item xs={4}>
             {userId === _id && (
               <IconButton
-                onClick={handleDelete}
-                className={classes.deleteButton}
+                className={classes.buttonControls}
                 aria-label="delete"
               >
                 <ChatBubbleOutlineIcon fontSize="small" />
@@ -113,7 +110,7 @@ const Post = ({ post }) => {
             {userId === _id && (
               <IconButton
                 onClick={handleDelete}
-                className={classes.deleteButton}
+                className={classes.buttonControls}
                 aria-label="delete"
               >
                 <DeleteOutlineIcon fontSize="small" />
