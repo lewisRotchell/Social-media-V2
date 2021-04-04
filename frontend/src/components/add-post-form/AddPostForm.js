@@ -46,7 +46,7 @@ const AddPostForm = ({ userInfo }) => {
   return (
     <Card className={classes.root}>
       <form
-        onSubmit={handleSubmit}
+        // onSubmit={handleSubmit}
         noValidate
         autoComplete="off"
         className={classes.form}
@@ -68,6 +68,8 @@ const AddPostForm = ({ userInfo }) => {
               fullWidth
               id="standard-basic"
               label={`Say something, ${userInfo.username}`}
+              multiline
+              variant="filled"
             />
           </Grid>
         </Grid>
@@ -77,6 +79,9 @@ const AddPostForm = ({ userInfo }) => {
           </Button>
           <Button size="small" color="primary">
             Following: {userInfo.following.length}
+          </Button>
+          <Button onClick={handleSubmit} size="small" color="primary">
+            SEND
           </Button>
         </CardActions>
       </form>
