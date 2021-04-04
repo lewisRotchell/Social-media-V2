@@ -9,7 +9,10 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import DeleteIcon from "@material-ui/icons/Delete";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -27,18 +30,23 @@ const useStyles = makeStyles(() => ({
     fontSize: "16px",
   },
   likeButton: {
-    padding: "0 16px 0 8px",
+    padding: "0",
   },
   deleteButton: {
-    marginLeft: "auto",
+    padding: "0",
   },
   text: {
     width: "95%",
     margin: "6px 0",
     overflowWrap: "break-word",
   },
+  postControls: {
+    marginLeft: "80px", //This is for positioning
+    marginBottom: "10px",
+  },
 }));
-const Post = ({ post, userId }) => {
+const Post = ({ post }) => {
+  const userId = useSelector((state) => state.userLogin.userInfo._id);
   const classes = useStyles();
   const {
     likes,
@@ -69,15 +77,49 @@ const Post = ({ post, userId }) => {
          image="/static/images/cards/paella.jpg"
         title="Paella dish"
        /> */}
-
           <Typography
             className={classes.text}
             align="left"
-            variant="body2"
+            variant="body1"
             color="textPrimary"
           >
             {text}
           </Typography>
+        </Grid>
+        <Grid className={classes.postControls} container>
+          <Grid item xs={4}>
+            <IconButton
+              size="small"
+              className={classes.likeButton}
+              aria-label="add to favorites"
+            >
+              <FavoriteBorderIcon fontSize="small" />
+              <span className={classes.numLikes}>{likes.length}</span>
+            </IconButton>
+          </Grid>
+          <Grid item xs={4}>
+            {userId === _id && (
+              <IconButton
+                onClick={handleDelete}
+                className={classes.deleteButton}
+                aria-label="delete"
+              >
+                <ChatBubbleOutlineIcon fontSize="small" />
+                <span className={classes.numLikes}>0</span>
+              </IconButton>
+            )}
+          </Grid>
+          <Grid item xs={4}>
+            {userId === _id && (
+              <IconButton
+                onClick={handleDelete}
+                className={classes.deleteButton}
+                aria-label="delete"
+              >
+                <DeleteOutlineIcon fontSize="small" />
+              </IconButton>
+            )}
+          </Grid>
         </Grid>
       </Grid>
     </Card>
