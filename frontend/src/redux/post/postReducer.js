@@ -5,6 +5,10 @@ import {
   CLEAR_POSTS,
   ADD_POST,
   ADD_POST_FAIL,
+  DELETE_POST,
+  DELETE_POST_FAIL,
+  TOGGLE_LIKES,
+  TOGGLE_LIKES_FAIL,
 } from "./PostTypes";
 
 const initialState = {
@@ -54,6 +58,36 @@ export const postReducer = (state = initialState, action) => {
         loading: false,
         posts: [payload, ...state.posts],
       };
+    case DELETE_POST:
+      return {
+        ...state,
+        loading: false,
+        posts: state.posts.filter((post) => post._id !== payload),
+      };
+    case DELETE_POST_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+    case TOGGLE_LIKES: {
+      return {
+        ...state,
+        loading: false,
+
+        posts: state.posts.map((post) =>
+          post._id === payload.postId ? { ...post, likes: payload.likes } : post
+        ),
+      };
+    }
+    case TOGGLE_LIKES_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+    }
+
     default:
       return state;
   }

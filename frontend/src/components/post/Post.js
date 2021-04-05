@@ -2,9 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
@@ -12,7 +9,8 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { deletePost, toggleLikes } from "../../redux/post/postActions";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -46,8 +44,10 @@ const useStyles = makeStyles(() => ({
 }));
 const Post = ({ post }) => {
   const userId = useSelector((state) => state.userLogin.userInfo._id);
+  const dispatch = useDispatch();
   const classes = useStyles();
   const {
+    _id: postId,
     likes,
     text,
     createdAt,
@@ -55,7 +55,11 @@ const Post = ({ post }) => {
   } = post;
 
   const handleDelete = () => {
-    console.log("deleted");
+    dispatch(deletePost(postId));
+  };
+
+  const handleLike = () => {
+    dispatch(toggleLikes(postId));
   };
 
   return (
@@ -88,9 +92,10 @@ const Post = ({ post }) => {
         <Grid className={classes.postControls} container>
           <Grid item xs={4}>
             <IconButton
+              onClick={handleLike}
               size="small"
               className={classes.buttonControls}
-              aria-label="add to favorites"
+              aria-label="like post"
             >
               <FavoriteBorderIcon fontSize="small" />
               <span className={classes.numLikes}>{likes.length}</span>
@@ -100,7 +105,7 @@ const Post = ({ post }) => {
             {userId === _id && (
               <IconButton
                 className={classes.buttonControls}
-                aria-label="delete"
+                aria-label="add or view comments"
               >
                 <ChatBubbleOutlineIcon fontSize="small" />
                 <span className={classes.numLikes}>0</span>

@@ -4,3 +4,7 @@ export const GET_POSTS_FAIL = "GET_POSTS_FAIL";
 export const CLEAR_POSTS = "CLEAR_POSTS";
 export const ADD_POST = "ADD_POST";
 export const ADD_POST_FAIL = "ADD_POST_FAIL";
+export const DELETE_POST = "DELETE_POST";
+export const DELETE_POST_FAIL = "DELETE_POST_FAIL";
+export const TOGGLE_LIKES = "TOGGLE_LIKES";
+export const TOGGLE_LIKES_FAIL = "TOGGLE_LIKES_FAIL";
