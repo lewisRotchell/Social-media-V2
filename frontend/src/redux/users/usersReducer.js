@@ -12,6 +12,7 @@ const initialState = {
   userList: [],
   user: false,
   loading: false,
+  error: false,
 };
 
 export const usersReducer = (state = initialState, action) => {
@@ -37,6 +38,7 @@ export const usersReducer = (state = initialState, action) => {
       return {
         loading: false,
         user: payload,
+        error: false,
       };
     case GET_USER_FAIL:
     case USERS_SEARCH_FAIL:
