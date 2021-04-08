@@ -51,7 +51,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 const Post = ({ post }) => {
-  const userId = useSelector((state) => state.userLogin.userInfo._id);
+  const userId = useSelector((state) => state.userLogin.userInfo?._id);
+
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -63,6 +64,7 @@ const Post = ({ post }) => {
     createdAt,
     user: { photo, _id, username },
   } = post;
+  console.log(username);
 
   const handleDelete = () => {
     dispatch(deletePost(postId));
@@ -122,15 +124,13 @@ const Post = ({ post }) => {
             </IconButton>
           </Grid>
           <Grid item xs={4}>
-            {userId === _id && (
-              <IconButton
-                className={classes.buttonControls}
-                aria-label="add or view comments"
-              >
-                <ChatBubbleOutlineIcon fontSize="small" />
-                <span className={classes.numLikes}>0</span>
-              </IconButton>
-            )}
+            <IconButton
+              className={classes.buttonControls}
+              aria-label="add or view comments"
+            >
+              <ChatBubbleOutlineIcon fontSize="small" />
+              <span className={classes.numLikes}>0</span>
+            </IconButton>
           </Grid>
           <Grid item xs={4}>
             {userId === _id && (

@@ -43,7 +43,6 @@ const getFollowingPosts = catchAsync(async (req, res, next) => {
   const user = req.user;
   //Add user posts to post list to show user's own posts
   user.following.push(user._id);
-  console.log(user);
 
   const posts = await Post.find({ user: { $in: user.following } })
     .populate({
@@ -61,8 +60,6 @@ const getFollowingPosts = catchAsync(async (req, res, next) => {
 const toggleLike = catchAsync(async (req, res, next) => {
   const user = req.user;
   const post = await Post.findById(req.params.id);
-  console.log(post);
-  console.log(user._id);
 
   if (!post) {
     return next(new AppError("Post not found", 404));
@@ -116,9 +113,12 @@ const deletePost = catchAsync(async (req, res, next) => {
 
 const getPostsByUser = catchAsync(async (req, res, next) => {
   const user = req.params.userId;
-  const posts = await Post.find({ user });
-
-  console.log(user);
+  const posts = await Post.find({ user })
+    .populate({
+      path: "user",
+      select: { _id: 1, username: 1, photo: 1 },
+    })
+    .sort("-createdAt");
 
   if (!posts) {
     return next(new AppError("Posts not found", 404));
