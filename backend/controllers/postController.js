@@ -98,7 +98,7 @@ const deletePost = catchAsync(async (req, res, next) => {
   const user = req.user;
   const post = await Post.findById(req.params.id);
   if (!post) {
-    return next(new AppError("Post nt found", 404));
+    return next(new AppError("Post not found", 404));
   }
 
   // console.log(user._id.toString() === post.user._id.toString());
@@ -114,4 +114,27 @@ const deletePost = catchAsync(async (req, res, next) => {
   });
 });
 
-export { createPost, getPosts, getFollowingPosts, toggleLike, deletePost };
+const getPostsByUser = catchAsync(async (req, res, next) => {
+  const user = req.params.userId;
+  const posts = await Post.find({ user });
+
+  console.log(user);
+
+  if (!posts) {
+    return next(new AppError("Posts not found", 404));
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: posts,
+  });
+});
+
+export {
+  createPost,
+  getPosts,
+  getFollowingPosts,
+  toggleLike,
+  deletePost,
+  getPostsByUser,
+};

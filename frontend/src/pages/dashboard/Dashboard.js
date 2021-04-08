@@ -5,7 +5,7 @@ import { BeatLoader } from "react-spinners";
 import { css } from "@emotion/core";
 import PostList from "../../components/postList/PostList";
 import AddPostForm from "../../components/add-post-form/AddPostForm";
-import { getPosts } from "../../redux/post/postActions";
+import { getNewsfeed } from "../../redux/post/postActions";
 
 const loaderCSS = css`
   position: absolute;
@@ -27,7 +27,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (posts.length === 0) {
-      dispatch(getPosts());
+      dispatch(getNewsfeed());
     }
   }, [dispatch]);
 

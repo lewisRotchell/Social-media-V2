@@ -10,6 +10,7 @@ import setAuthToken from "./utils/setAuthToken";
 import PrivateRoute from "./routes/PrivateRoute";
 import SearchPage from "./pages/search-page/SearchPage";
 import Container from "@material-ui/core/Container";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/search-page" component={SearchPage} />
+          <Route exact path="/profile/:id" component={ProfilePage} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
         </Switch>
       </Container>

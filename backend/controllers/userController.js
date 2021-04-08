@@ -15,6 +15,19 @@ const getUsers = catchAsync(async (req, res, next) => {
   });
 });
 
+const getUser = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(new AppError("No user found with that ID ", 400));
+  }
+
+  res.status(200).json({
+    status: "success",
+    user,
+  });
+});
+
 const getUserByUsername = catchAsync(async (req, res, next) => {
   const { username } = req.body;
 
@@ -68,4 +81,4 @@ const followAndUnfollowUser = catchAsync(async (req, res, next) => {
   });
 });
 
-export { followAndUnfollowUser, getUsers, getUserByUsername };
+export { followAndUnfollowUser, getUsers, getUserByUsername, getUser };

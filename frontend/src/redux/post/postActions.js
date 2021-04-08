@@ -1,9 +1,9 @@
 import axios from "axios";
 import {
-  GET_POSTS,
-  GET_POSTS_FAIL,
+  GET_NEWSFEED,
+  GET_NEWSFEED_FAIL,
   CLEAR_POSTS,
-  GET_POSTS_REQUEST,
+  GET_NEWSFEED_REQUEST,
   ADD_POST,
   ADD_POST_FAIL,
   DELETE_POST,
@@ -13,24 +13,20 @@ import {
 } from "./PostTypes";
 import setAuthToken from "../../utils/setAuthToken";
 
-export const getPosts = () => async (dispatch) => {
+export const getNewsfeed = () => async (dispatch) => {
   try {
-    // if (localStorage.token) {
-    //   setAuthToken(localStorage.token);
-    // }
-
     dispatch({
-      type: GET_POSTS_REQUEST,
+      type: GET_NEWSFEED_REQUEST,
     });
     const { data } = await axios.get("/api/post/newsfeed");
 
     dispatch({
-      type: GET_POSTS,
+      type: GET_NEWSFEED,
       payload: data.posts,
     });
   } catch (error) {
     dispatch({
-      type: GET_POSTS_FAIL,
+      type: GET_NEWSFEED_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
