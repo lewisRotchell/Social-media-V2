@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { logout } from "../../redux/user/userActions";
+import { logout } from "../../redux/auth/authActions";
 import { clearPosts } from "../../redux/post/postActions";
 import { makeStyles, fade } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";

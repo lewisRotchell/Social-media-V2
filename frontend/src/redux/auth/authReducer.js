@@ -1,14 +1,14 @@
 import {
-  USER_REGISTER_SUCCESS,
-  USER_REGISTER_FAIL,
-  USER_LOGIN_REQUEST,
-  USER_LOGIN_FAIL,
-  USER_LOGIN_SUCCESS,
-  USER_LOGOUT,
-  USER_LOADED,
-  USER_LOADED_FAIL,
-  USER_LOAD_REQUEST,
-} from "./userTypes";
+  AUTH_REGISTER_SUCCESS,
+  AUTH_REGISTER_FAIL,
+  AUTH_LOGIN_REQUEST,
+  AUTH_LOGIN_FAIL,
+  AUTH_LOGIN_SUCCESS,
+  AUTH_LOGOUT,
+  AUTH_LOADED,
+  AUTH_LOADED_FAIL,
+  AUTH_LOAD_REQUEST,
+} from "./authTypes";
 
 const initialState = {
   userInfo: null,
@@ -21,40 +21,40 @@ const initialState = {
 export const userLoginReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
-    case USER_REGISTER_SUCCESS:
+    case AUTH_REGISTER_SUCCESS:
       return {
         ...state,
         loading: false,
         token: payload,
         isAuth: true,
       };
-    case USER_LOGIN_REQUEST:
+    case AUTH_LOGIN_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case USER_LOGIN_SUCCESS:
+    case AUTH_LOGIN_SUCCESS:
       return {
         ...state,
         loading: false,
         token: payload,
         isAuth: true,
       };
-    case USER_LOAD_REQUEST:
+    case AUTH_LOAD_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case USER_LOADED:
+    case AUTH_LOADED:
       return {
         ...state,
         loading: false,
         userInfo: payload,
         isAuth: true,
       };
-    case USER_LOGIN_FAIL:
-    case USER_LOADED_FAIL:
-    case USER_REGISTER_FAIL:
+    case AUTH_LOGIN_FAIL:
+    case AUTH_LOADED_FAIL:
+    case AUTH_REGISTER_FAIL:
       return {
         ...state,
         loading: false,
@@ -63,7 +63,7 @@ export const userLoginReducer = (state = initialState, action) => {
         token: null,
         isAuth: false,
       };
-    case USER_LOGOUT:
+    case AUTH_LOGOUT:
       return {
         ...state,
         loading: false,

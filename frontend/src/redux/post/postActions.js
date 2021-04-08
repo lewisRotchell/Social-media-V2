@@ -10,8 +10,10 @@ import {
   DELETE_POST_FAIL,
   TOGGLE_LIKES,
   TOGGLE_LIKES_FAIL,
+  GET_POSTS,
+  GET_POSTS_FAIL,
+  GET_POSTS_REQUEST,
 } from "./PostTypes";
-import setAuthToken from "../../utils/setAuthToken";
 
 export const getNewsfeed = () => async (dispatch) => {
   try {
@@ -27,6 +29,28 @@ export const getNewsfeed = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_NEWSFEED_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getPosts = (userId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_POSTS_REQUEST,
+    });
+    const { data } = await axios.get(`/api/post/user/${userId}`);
+
+    dispatch({
+      type: GET_POSTS,
+      payload: data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_POSTS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

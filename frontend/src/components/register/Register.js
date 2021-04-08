@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { register } from "../../redux/user/userActions";
+import { register } from "../../redux/auth/authActions";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";

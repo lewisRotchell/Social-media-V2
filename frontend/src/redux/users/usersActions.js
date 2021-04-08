@@ -4,6 +4,9 @@ import {
   USERS_SEARCH_SUCCESS,
   USERS_SEARCH_FAIL,
   USERS_SEARCH_CLEAR,
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
+  GET_USER_FAIL,
 } from "./usersTypes";
 
 export const getUsers = (username) => async (dispatch) => {
@@ -32,6 +35,29 @@ export const getUsers = (username) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USERS_SEARCH_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getUser = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_USER_REQUEST,
+    });
+
+    const { data } = await axios.get(`/api/users/${id}`);
+
+    dispatch({
+      type: GET_USER_SUCCESS,
+      payload: data.user,
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_USER_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

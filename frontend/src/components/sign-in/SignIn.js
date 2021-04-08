@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { login } from "../../redux/user/userActions";
+import { login } from "../../redux/auth/authActions";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";

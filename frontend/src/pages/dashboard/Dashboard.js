@@ -26,9 +26,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (posts.length === 0) {
-      dispatch(getNewsfeed());
-    }
+    dispatch(getNewsfeed());
   }, [dispatch]);
 
   return (

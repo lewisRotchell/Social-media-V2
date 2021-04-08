@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loadUser } from "./redux/user/userActions";
+import { loadUser } from "./redux/auth/authActions";
 import Header from "./components/header/Header";
 import LandingPage from "./pages/landing-page/LandingPage";
 import Dashboard from "./pages/dashboard/Dashboard";

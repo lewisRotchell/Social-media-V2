@@ -1,4 +1,7 @@
 import {
+  GET_POSTS,
+  GET_POSTS_FAIL,
+  GET_POSTS_REQUEST,
   GET_NEWSFEED,
   GET_NEWSFEED_FAIL,
   GET_NEWSFEED_REQUEST,
@@ -20,6 +23,25 @@ const initialState = {
 export const postReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
+    case GET_POSTS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case GET_POSTS:
+      return {
+        ...state,
+        loading: false,
+        posts: payload,
+        error: false,
+      };
+    case GET_POSTS_FAIL:
+      return {
+        ...state,
+        loading: false,
+        posts: [],
+        error: payload,
+      };
     case GET_NEWSFEED_REQUEST:
       return {
         ...state,
@@ -49,7 +71,7 @@ export const postReducer = (state = initialState, action) => {
     case CLEAR_POSTS:
       return {
         ...state,
-        loading: false,
+        loading: true,
         posts: [],
       };
     case ADD_POST:

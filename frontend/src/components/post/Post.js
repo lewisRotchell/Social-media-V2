@@ -10,7 +10,12 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import { useSelector, useDispatch } from "react-redux";
-import { deletePost, toggleLikes } from "../../redux/post/postActions";
+import {
+  clearPosts,
+  deletePost,
+  toggleLikes,
+} from "../../redux/post/postActions";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -23,6 +28,9 @@ const useStyles = makeStyles(() => ({
   },
   username: {
     marginTop: "8px",
+    "&:hover": {
+      cursor: "pointer",
+    },
   },
   numLikes: {
     fontSize: "16px",
@@ -45,7 +53,9 @@ const useStyles = makeStyles(() => ({
 const Post = ({ post }) => {
   const userId = useSelector((state) => state.userLogin.userInfo._id);
   const dispatch = useDispatch();
+  const history = useHistory();
   const classes = useStyles();
+
   const {
     _id: postId,
     likes,
@@ -62,6 +72,11 @@ const Post = ({ post }) => {
     dispatch(toggleLikes(postId));
   };
 
+  const handleProfileRoute = () => {
+    dispatch(clearPosts());
+    history.push(`/profile/${_id}`);
+  };
+
   return (
     <Card className={classes.card}>
       <Grid container>
@@ -69,7 +84,12 @@ const Post = ({ post }) => {
           <Avatar className={classes.avatar}>{photo}</Avatar>
         </Grid>
         <Grid item xs={10}>
-          <Typography className={classes.username} variant="h5" color="primary">
+          <Typography
+            onClick={handleProfileRoute}
+            className={classes.username}
+            variant="h5"
+            color="primary"
+          >
             {username}
           </Typography>
           <Typography variant="caption" color="primary">
