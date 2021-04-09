@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   userList: [],
-  user: true,
+  user: false,
   loading: false,
   error: false,
 };
@@ -20,22 +20,26 @@ export const usersReducer = (state = initialState, action) => {
   switch (type) {
     case USERS_SEARCH_REQUEST:
       return {
+        ...state,
         userList: [],
         loading: true,
         user: false,
       };
     case USERS_SEARCH_SUCCESS:
       return {
+        ...state,
         userList: payload,
         loading: false,
       };
     case GET_USER_REQUEST:
       return {
+        ...state,
         loading: true,
         user: false,
       };
     case GET_USER_SUCCESS:
       return {
+        ...state,
         loading: false,
         user: payload,
         error: false,
@@ -43,6 +47,7 @@ export const usersReducer = (state = initialState, action) => {
     case GET_USER_FAIL:
     case USERS_SEARCH_FAIL:
       return {
+        ...state,
         UserList: [],
         loading: false,
         user: false,
@@ -50,6 +55,7 @@ export const usersReducer = (state = initialState, action) => {
       };
     case USERS_SEARCH_CLEAR:
       return {
+        ...state,
         UserList: [],
         loading: false,
         user: false,
