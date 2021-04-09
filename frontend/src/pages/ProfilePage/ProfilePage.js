@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPosts } from "../../redux/post/postActions";
 import { getUser } from "../../redux/users/usersActions";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import Button from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
@@ -11,7 +13,7 @@ import PostList from "../../components/postList/PostList";
 
 const useStyles = makeStyles({
   backButton: {
-    margin: "25px 0",
+    marginTop: "25px",
     "&:hover": {
       cursor: "pointer",
     },
@@ -48,23 +50,31 @@ const ProfilePage = ({ match }) => {
   const userError = useSelector((state) => state.users.error);
   const userInfo = useSelector((state) => state.users.user);
 
+  const authInfo = useSelector((state) => state.userLogin.userInfo);
+
   const { photo, following, followers, username } = userInfo;
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getUser(match.params.id.toString()));
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(getPosts(match.params.id.toString()));
   }, [dispatch]);
 
-  console.log(posts);
+  const handleReturn = () => {
+    if (userInfo === null) {
+      history.push("/");
+    } else {
+      history.push("/dashboard");
+    }
+  };
 
   return (
     <div>
-      <ArrowBackIcon className={classes.backButton} />
+      <Button onClick={handleReturn} className={classes.backButton}>
+        <ArrowBackIcon />
+      </Button>
 
       {postsLoading || userLoading ? (
         <div>LOADING</div>

@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   userList: [],
-  user: false,
+  user: true,
   loading: false,
   error: false,
 };

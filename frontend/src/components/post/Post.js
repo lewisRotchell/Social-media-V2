@@ -13,9 +13,11 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   clearPosts,
   deletePost,
+  getPosts,
   toggleLikes,
 } from "../../redux/post/postActions";
 import { useHistory } from "react-router-dom";
+import { getUser } from "../../redux/users/usersActions";
 
 const useStyles = makeStyles(() => ({
   card: {
@@ -64,7 +66,6 @@ const Post = ({ post }) => {
     createdAt,
     user: { photo, _id, username },
   } = post;
-  console.log(username);
 
   const handleDelete = () => {
     dispatch(deletePost(postId));
@@ -75,8 +76,10 @@ const Post = ({ post }) => {
   };
 
   const handleProfileRoute = () => {
-    dispatch(clearPosts());
+    // dispatch(clearPosts());
     history.push(`/profile/${_id}`);
+    dispatch(getUser(_id));
+    dispatch(getPosts(_id));
   };
 
   return (
