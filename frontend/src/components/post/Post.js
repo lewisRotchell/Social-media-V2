@@ -76,10 +76,10 @@ const Post = ({ post }) => {
   };
 
   const handleProfileRoute = () => {
-    // dispatch(clearPosts());
+    dispatch(clearPosts());
     history.push(`/profile/${_id}`);
-    dispatch(getUser(_id));
-    dispatch(getPosts(_id));
+    // dispatch(getUser(_id));
+    // dispatch(getPosts(_id));
   };
 
   return (

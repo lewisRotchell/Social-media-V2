@@ -60,10 +60,10 @@ const ProfilePage = ({ match }) => {
   useEffect(() => {
     dispatch(getUser(match.params.id.toString()));
     dispatch(getPosts(match.params.id.toString()));
-  }, [dispatch]);
+  }, [dispatch, match]);
 
   const handleReturn = () => {
-    if (userInfo === null) {
+    if (authInfo === null) {
       history.push("/");
     } else {
       history.push("/dashboard");
